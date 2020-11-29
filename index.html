@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- favicon for website -->
+	<link rel="shortcut icon" type="image/png" href="image/favicon.png">
+	
+	<!-- jQuery -->
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<!-- Angular -->
+	<script src="js/angular.min.js"></script>
+	<!-- UI-Router -->
+	<script src="js/angular-ui-router.min.js"></script>
+
+	<!-- Sweetalert2 js and css -->
+	<script src="js/sweetalert2.all.min.js"></script>
+	<link rel="stylesheet" href="css/sweetalert2.min.css"/>
+	<script src="js/promise.min.js"></script>
+	
+	<!-- Pusher API -->
+	<script src="js/pusher.min.js"></script>
+	
+	<!-- Circular progress plugin-->
+	<script src="js/circular-progress-plugin.js"></script>
+	<link rel="stylesheet" href="css/circular-progress-plugin.css">
+	
+	<!-- Cookies js lib for Google Drive upload-->
+	<script src="js/cookies.min.1.2.3.js"></script>
+	
+	<script src="js/app.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/mycss.css">
+	
+	<!-- Cookie policy banner -->
+	<link rel="stylesheet" type="text/css" href="css/cookieconsent.min.css"/>
+	<script src="js/cookieconsent.min.js"></script>
+	<script>
+		window.addEventListener("load", function() {
+			window.wpcc.init({
+				"colors": {
+					"popup": {
+						"background": "#edfdfa",
+						"text": "#000000"
+					},
+					"button": {
+						"background": "#5ec2b6",
+						"text": "#ffffff",
+						"border": "transparent"
+					}
+				},
+				"position": "bottom-right",
+				"layout": "edgeless",
+				"content": {
+					"href": "https://hotstardownload.herokuapp.com/cookie_policy.html",
+					"message": "This website uses cookies for uploading files to Google Drive and Onedrive"
+				}}
+			)}
+		);
+	</script>
+</head>
+<body ng-app="app" style="background: #333;">
+
+<div class="centered" ui-view>
+</div>
+
+</body>
+</html>

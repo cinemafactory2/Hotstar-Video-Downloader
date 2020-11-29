@@ -1,0 +1,39 @@
+language: php
+ 
+php:
+  - 7.1.3
+
+env:
+ global:
+  - MESSAGE="Tag Generated from TravisCI for build $TRAVIS_BUILD_NUMBER"
+  - CI_BUILD_NUMBER="$TRAVIS_BUILD_NUMBER"
+  - CI_PULL_REQUEST="$TRAVIS_PULL_REQUEST"
+  - CI_BRANCH="$TRAVIS_BRANCH"
+  
+install:
+ - curl -s http://getcomposer.org/installer | php
+ - php composer.phar install --dev --no-interaction
+
+script:
+ - rm -rf build/
+ - mkdir -p build/logs
+ - echo "Starting php lint check for php files"
+ - find -name "*.php" -not -path "./vendor/*" -not -path "./.composer/*" -not -path "./.heroku/*" -exec bash -c 'RELATIVE_PATH="{}"; php -l ${RELATIVE_PATH:2}' >> build/logs/lint_checks.log \;
+ - echo "PHP lint check completed successfully"
+ - echo "Starting PHP unit tests"
+ - phpunit --configuration phpunit.xml
+ - echo "PHP unit tests completed successfully"
+
+after_success:
+ - travis_retry php vendor/bin/php-coveralls -v
+ - travis_retry php vendor/bin/codacycoverage clover
+ - echo $MESSAGE >> build/build.log
+
+deploy:
+ provider: releases
+ api_key: $GITHUB_TOKEN
+ file_glob: true
+ file: build/**/*
+ skip_cleanup: true
+ on:
+    tags: true
